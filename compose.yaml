@@ -1,4 +1,14 @@
 services:
+  db:
+    image: postgres:16.1
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: nn_chat
+      TZ: "Asia/Tokyo"
+    volumes:
+      - ../nn-chat-db:/var/lib/postgresql/data
+
   app:
     build: .
     tty: true
@@ -11,15 +21,5 @@ services:
       db:
         condition: service_healthy
       
-  db:
-    image: postgres:16.1
-    environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: nn_chat
-      TZ: "Asia/Tokyo"
-    volumes:
-      - ../nn-chat-db:/var/lib/postgresql/data
-
 volumes:
   node_modules:
